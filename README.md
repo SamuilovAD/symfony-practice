@@ -7,3 +7,9 @@
 ```bash
 docker compose up -d
 ```
+
+# GOF patterns commands #
+
+```aiignore
+php bin/console gof:factory-method:send email "Hello GOF!"
+```
