@@ -1,8 +1,7 @@
 <?php
 
-namespace App\GofPatterns\Infrastructure\AbstractFactory\Factory;
+namespace App\GofPatterns\Domain\AbstractFactory\Factory;
 
-use App\GofPatterns\Domain\AbstractFactory\Factory\PaymentProviderFactoryInterface;
 use App\GofPatterns\Domain\AbstractFactory\Provider;
 
 interface ProviderSelectorFactoryInterface

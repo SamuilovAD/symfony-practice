@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\GofPatterns\Application\Console;
 
+use App\GofPatterns\Domain\AbstractFactory\Factory\ProviderSelectorFactoryInterface;
 use App\GofPatterns\Domain\AbstractFactory\Provider;
-use App\GofPatterns\Infrastructure\AbstractFactory\Factory\ProviderSelectorFactoryInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

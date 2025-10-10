@@ -18,3 +18,7 @@ docker compose exec php php bin/console gof:factory-method email 'Hello GOF!'
 ```bash
 docker compose exec php php bin/console gof:abstract-factory paypal 5
 ```
+## Builder ##
+```bash
+docker compose exec php php bin/console gof:builder checkout cus_123
+```

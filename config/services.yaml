@@ -25,5 +25,11 @@ services:
     App\GofPatterns\Infrastructure\AbstractFactory\Factory\ProviderSelectorFactory:
         arguments:
             $factories: !tagged_iterator { tag: 'billing.payment_provider_factory', index_by: 'key' }
-    App\GofPatterns\Infrastructure\AbstractFactory\Factory\ProviderSelectorFactoryInterface:
+    App\GofPatterns\Domain\AbstractFactory\Factory\ProviderSelectorFactoryInterface:
         alias: App\GofPatterns\Infrastructure\AbstractFactory\Factory\ProviderSelectorFactory
+
+    # === Builder ===
+    App\GofPatterns\Application\Console\BuilderCommand: ~
+    App\GofPatterns\Infrastructure\Builder\StripeUrlBuilderFactory: ~
+    App\GofPatterns\Domain\Builder\StripeUrlBuilderFactoryInterface:
+        alias: App\GofPatterns\Infrastructure\Builder\StripeUrlBuilderFactory

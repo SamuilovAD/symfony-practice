@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GofPatterns\Infrastructure\AbstractFactory\Factory;
 
 use App\GofPatterns\Domain\AbstractFactory\Factory\PaymentProviderFactoryInterface;
+use App\GofPatterns\Domain\AbstractFactory\Factory\ProviderSelectorFactoryInterface;
 use App\GofPatterns\Domain\AbstractFactory\Provider;
 use App\GofPatterns\Infrastructure\AbstractFactory\Exception\UndefinedProviderFactoryException;
 
