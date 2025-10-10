@@ -22,3 +22,8 @@ docker compose exec php php bin/console gof:abstract-factory paypal 5
 ```bash
 docker compose exec php php bin/console gof:builder checkout cus_123
 ```
+
+## Builder ##
+```bash
+docker compose exec php php bin/console gof:singleton
+```
