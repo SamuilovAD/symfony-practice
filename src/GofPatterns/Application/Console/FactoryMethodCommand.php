@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\GofPatterns\Application\Console;
@@ -19,8 +20,9 @@ class FactoryMethodCommand extends Command
 {
     public const string ARGUMENT_TYPE = 'type';
     public const string ARGUMENT_MESSAGE = 'message';
+
     public function __construct(
-        private readonly NotifierFactoryInterface $factory
+        private readonly NotifierFactoryInterface $factory,
     ) {
         parent::__construct();
     }
@@ -39,6 +41,7 @@ class FactoryMethodCommand extends Command
         $notifier = $this->factory->create($typeEnum);
         $notifier->send($message);
         $output->writeln('<info>Notification sent!</info>');
+
         return Command::SUCCESS;
     }
 }

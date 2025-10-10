@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -13,10 +14,10 @@ final class HealthCheckController
         $version = $request->attributes->get('_api_version', 'v1');
 
         return new JsonResponse([
-            'status'    => 'ok',
+            'status' => 'ok',
             'timestamp' => (new \DateTimeImmutable())->format(DATE_ATOM),
-            'service'   => 'symfony-practice',
-            'version'   => $version,
+            'service' => 'symfony-practice',
+            'version' => $version,
         ]);
     }
 }

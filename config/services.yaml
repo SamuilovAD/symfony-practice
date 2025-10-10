@@ -13,3 +13,17 @@ services:
     App\GofPatterns\Infrastructure\FactoryMethod\NotifierFactory: ~
     App\GofPatterns\Domain\FactoryMethod\NotifierFactoryInterface:
         alias: App\GofPatterns\Infrastructure\FactoryMethod\NotifierFactory
+
+    # === Abstract factory ===
+    App\GofPatterns\Application\Console\AbstractFactoryCommand: ~
+    App\GofPatterns\Infrastructure\AbstractFactory\Stripe\Factory\StripeProviderFactory:
+        tags:
+            - { name: 'billing.payment_provider_factory', key: 'stripe' }
+    App\GofPatterns\Infrastructure\AbstractFactory\Paypal\Factory\PaypalProviderFactory:
+        tags:
+            - { name: 'billing.payment_provider_factory', key: 'paypal' }
+    App\GofPatterns\Infrastructure\AbstractFactory\Factory\ProviderSelectorFactory:
+        arguments:
+            $factories: !tagged_iterator { tag: 'billing.payment_provider_factory', index_by: 'key' }
+    App\GofPatterns\Infrastructure\AbstractFactory\Factory\ProviderSelectorFactoryInterface:
+        alias: App\GofPatterns\Infrastructure\AbstractFactory\Factory\ProviderSelectorFactory
