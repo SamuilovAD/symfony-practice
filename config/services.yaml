@@ -36,3 +36,19 @@ services:
 
     # === Singleton ===
     App\GofPatterns\Application\Console\SingletonCommand: ~
+
+    # === Prototype ===
+    App\GofPatterns\Application\Console\PrototypeCommand: ~
+
+    # === Adapter ===
+    App\GofPatterns\Infrastructure\Adapter\ExternalFileLogger:
+        arguments:
+            $filePath: '%kernel.project_dir%/var/log/adapter.log'
+    App\GofPatterns\Infrastructure\Adapter\ExternalFileLoggerInterface:
+        alias: App\GofPatterns\Infrastructure\Adapter\ExternalFileLogger
+    App\GofPatterns\Infrastructure\Adapter\FileLoggerAdapter:
+        arguments:
+            $logger: '@App\GofPatterns\Infrastructure\Adapter\ExternalFileLogger'
+    App\GofPatterns\Application\Console\AdapterCommand:
+        arguments:
+            $logger: '@App\GofPatterns\Infrastructure\Adapter\FileLoggerAdapter'

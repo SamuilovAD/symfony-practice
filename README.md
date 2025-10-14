@@ -27,3 +27,12 @@ docker compose exec php php bin/console gof:builder checkout cus_123
 ```bash
 docker compose exec php php bin/console gof:singleton
 ```
+
+## Prototype ##
+```bash
+docker compose exec php php bin/console gof:prototype
+```
+## Adapter ##
+```bash
+docker compose exec php php bin/console gof:gof:adapter
+```
