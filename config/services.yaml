@@ -9,46 +9,68 @@ services:
         tags: ['controller.service_arguments']
 
     # === Factory method ===
-    App\GofPatterns\Application\Console\FactoryMethodCommand: ~
-    App\GofPatterns\Infrastructure\FactoryMethod\NotifierFactory: ~
-    App\GofPatterns\Domain\FactoryMethod\NotifierFactoryInterface:
-        alias: App\GofPatterns\Infrastructure\FactoryMethod\NotifierFactory
+    App\GofPatterns\FactoryMethod\Infrastructure\Adapter\In\Console\FactoryMethodCommand: ~
+    App\GofPatterns\FactoryMethod\Infrastructure\Adapter\Out\NotifierFactory: ~
+    App\GofPatterns\FactoryMethod\Domain\Service\NotifierFactoryInterface:
+        alias: App\GofPatterns\FactoryMethod\Infrastructure\Adapter\Out\NotifierFactory
+    App\GofPatterns\FactoryMethod\Application\UseCase\SendNotificationHandler: ~
+    App\GofPatterns\FactoryMethod\Application\UseCase\SendNotificationHandlerInterface:
+        alias: App\GofPatterns\FactoryMethod\Application\UseCase\SendNotificationHandler
 
     # === Abstract factory ===
-    App\GofPatterns\Application\Console\AbstractFactoryCommand: ~
-    App\GofPatterns\Infrastructure\AbstractFactory\Stripe\Factory\StripeProviderFactory:
+    App\GofPatterns\AbstractFactory\Infrastructure\Adapter\In\Console\AbstractFactoryCommand: ~
+    App\GofPatterns\AbstractFactory\Infrastructure\Adapter\Out\Provider\Stripe\StripeProviderFactory:
         tags:
             - { name: 'billing.payment_provider_factory', key: 'stripe' }
-    App\GofPatterns\Infrastructure\AbstractFactory\Paypal\Factory\PaypalProviderFactory:
+    App\GofPatterns\AbstractFactory\Infrastructure\Adapter\Out\Provider\Paypal\PaypalProviderFactory:
         tags:
             - { name: 'billing.payment_provider_factory', key: 'paypal' }
-    App\GofPatterns\Infrastructure\AbstractFactory\Factory\ProviderSelectorFactory:
+    App\GofPatterns\AbstractFactory\Infrastructure\Adapter\Out\Provider\ProviderSelectorFactory:
         arguments:
             $factories: !tagged_iterator { tag: 'billing.payment_provider_factory', index_by: 'key' }
-    App\GofPatterns\Domain\AbstractFactory\Factory\ProviderSelectorFactoryInterface:
-        alias: App\GofPatterns\Infrastructure\AbstractFactory\Factory\ProviderSelectorFactory
+    App\GofPatterns\AbstractFactory\Application\Port\Out\Factory\ProviderSelectorFactoryInterface:
+        alias: App\GofPatterns\AbstractFactory\Infrastructure\Adapter\Out\Provider\ProviderSelectorFactory
 
     # === Builder ===
-    App\GofPatterns\Application\Console\BuilderCommand: ~
-    App\GofPatterns\Infrastructure\Builder\StripeUrlBuilderFactory: ~
-    App\GofPatterns\Domain\Builder\StripeUrlBuilderFactoryInterface:
-        alias: App\GofPatterns\Infrastructure\Builder\StripeUrlBuilderFactory
+    App\GofPatterns\Builder\Interface\Adapter\In\BuilderCommand: ~
+    App\GofPatterns\Builder\Interface\Adapter\Out\StripeUrlBuilderFactory: ~
+    App\GofPatterns\Builder\Application\Port\Out\StripeUrlBuilderFactoryInterface:
+        alias: App\GofPatterns\Builder\Interface\Adapter\Out\StripeUrlBuilderFactory
 
     # === Singleton ===
-    App\GofPatterns\Application\Console\SingletonCommand: ~
+    App\GofPatterns\Singleton\Infrastructure\Adapter\In\SingletonCommand: ~
 
     # === Prototype ===
-    App\GofPatterns\Application\Console\PrototypeCommand: ~
+    App\GofPatterns\Prototype\Infrastructure\Adapter\In\PrototypeCommand: ~
 
     # === Adapter ===
-    App\GofPatterns\Infrastructure\Adapter\ExternalFileLogger:
+    App\GofPatterns\Adapter\Infrastructure\Logging\Transport\ExternalFileLogger:
         arguments:
             $filePath: '%kernel.project_dir%/var/log/adapter.log'
-    App\GofPatterns\Infrastructure\Adapter\ExternalFileLoggerInterface:
-        alias: App\GofPatterns\Infrastructure\Adapter\ExternalFileLogger
-    App\GofPatterns\Infrastructure\Adapter\FileLoggerAdapter:
+    App\GofPatterns\Adapter\Infrastructure\Logging\Transport\ExternalFileLoggerInterface:
+        alias: App\GofPatterns\Adapter\Infrastructure\Logging\Transport\ExternalFileLogger
+    App\GofPatterns\Adapter\Infrastructure\Logging\FileLoggerAdapter:
         arguments:
-            $logger: '@App\GofPatterns\Infrastructure\Adapter\ExternalFileLogger'
-    App\GofPatterns\Application\Console\AdapterCommand:
+            $logger: '@App\GofPatterns\Adapter\Infrastructure\Logging\Transport\ExternalFileLogger'
+    App\GofPatterns\Adapter\Infrastructure\Adapter\In\AdapterCommand:
         arguments:
-            $logger: '@App\GofPatterns\Infrastructure\Adapter\FileLoggerAdapter'
+            $logger: '@App\GofPatterns\Adapter\Infrastructure\Logging\FileLoggerAdapter'
+
+    # === Decorator ===
+    App\GofPatterns\Decorator\Infrastructure\Persistence\DbProductRepository: ~
+    App\GofPatterns\Decorator\Infrastructure\Cache\InMemory\TimedCache:
+        arguments:
+            $defaultTtlSeconds: 300 # 5 min
+
+    App\GofPatterns\Decorator\Infrastructure\Decorator\CachedProductRepository:
+        arguments:
+            $inner: '@App\GofPatterns\Decorator\Infrastructure\Persistence\DbProductRepository'
+            $cache: '@App\GofPatterns\Decorator\Infrastructure\Cache\InMemory\TimedCache'
+
+    App\GofPatterns\Decorator\Domain\Port\ProductRepository:
+        alias: App\GofPatterns\Decorator\Infrastructure\Decorator\CachedProductRepository
+
+    App\GofPatterns\Decorator\Application\UseCase\GetProductsByIds: ~
+    App\GofPatterns\Decorator\Infrastructure\Adapter\In\DecoratorCommand:
+        arguments:
+            $useCase: '@App\GofPatterns\Decorator\Application\UseCase\GetProductsByIds'

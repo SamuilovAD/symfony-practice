@@ -23,7 +23,7 @@ docker compose exec php php bin/console gof:abstract-factory paypal 5
 docker compose exec php php bin/console gof:builder checkout cus_123
 ```
 
-## Builder ##
+## Singleton ##
 ```bash
 docker compose exec php php bin/console gof:singleton
 ```
@@ -34,5 +34,9 @@ docker compose exec php php bin/console gof:prototype
 ```
 ## Adapter ##
 ```bash
-docker compose exec php php bin/console gof:gof:adapter
+docker compose exec php php bin/console gof:adapter
+```
+## Decorator ##
+```bash
+docker compose exec php php bin/console gof:decorator
 ```
