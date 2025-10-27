@@ -12,10 +12,10 @@ use App\GofPatterns\Facade\Domain\Port\PaymentGatewayInterface;
 final readonly class PlaceOrderFacadeHandler
 {
     public function __construct(
-        private PaymentGatewayInterface      $payments,
-        private InventoryServiceInterface    $inventory,
+        private PaymentGatewayInterface $payments,
+        private InventoryServiceInterface $inventory,
         private NotificationServiceInterface $notifier,
-        private OrderRepositoryInterface     $orders,
+        private OrderRepositoryInterface $orders,
     ) {
     }
 

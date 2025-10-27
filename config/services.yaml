@@ -93,3 +93,11 @@ services:
 
     App\GofPatterns\Facade\Application\UseCase\PlaceOrder\PlaceOrderFacadeHandler: ~
     App\GofPatterns\Facade\Infrastructure\Adapter\In\FacadeCommand: ~
+
+    # === Proxy ===
+    App\GofPatterns\Proxy\Infrastructure\Cache\InMemoryCache: ~
+    App\GofPatterns\Proxy\Infrastructure\External\InMemoryProductCatalog: ~
+    App\GofPatterns\Proxy\Domain\Port\ProductCatalogInterface:
+        alias: App\GofPatterns\Proxy\Infrastructure\External\InMemoryProductCatalog
+    App\GofPatterns\Proxy\Infrastructure\Factory\ProductGhostFactory: ~
+    App\GofPatterns\Proxy\Infrastructure\Adapter\In\ProxyCommand: ~
