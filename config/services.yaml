@@ -74,3 +74,22 @@ services:
     App\GofPatterns\Decorator\Infrastructure\Adapter\In\DecoratorCommand:
         arguments:
             $useCase: '@App\GofPatterns\Decorator\Application\UseCase\GetProductsByIds'
+
+    # === Facade ===
+    App\GofPatterns\Facade\Infrastructure\Adapter\Out\Payment\FakePaymentGateway: ~
+    App\GofPatterns\Facade\Infrastructure\Inventory\InMemoryInventoryService: ~
+    App\GofPatterns\Facade\Infrastructure\Adapter\Out\Notification\LoggerNotificationService:
+        arguments:
+            $filePath: '%kernel.project_dir%/var/log/facade_notifications.log'
+    App\GofPatterns\Facade\Infrastructure\Persistence\InMemoryOrderRepository: ~
+    App\GofPatterns\Facade\Domain\Port\PaymentGatewayInterface:
+        alias: App\GofPatterns\Facade\Infrastructure\Adapter\Out\Payment\FakePaymentGateway
+    App\GofPatterns\Facade\Domain\Port\InventoryServiceInterface:
+        alias: App\GofPatterns\Facade\Infrastructure\Inventory\InMemoryInventoryService
+    App\GofPatterns\Facade\Domain\Port\NotificationServiceInterface:
+        alias: App\GofPatterns\Facade\Infrastructure\Adapter\Out\Notification\LoggerNotificationService
+    App\GofPatterns\Facade\Domain\Port\OrderRepositoryInterface:
+        alias: App\GofPatterns\Facade\Infrastructure\Persistence\InMemoryOrderRepository
+
+    App\GofPatterns\Facade\Application\UseCase\PlaceOrder\PlaceOrderFacadeHandler: ~
+    App\GofPatterns\Facade\Infrastructure\Adapter\In\FacadeCommand: ~

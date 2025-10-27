@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\GofPatterns\FactoryMethod\Prototype\Domain\Model;
+namespace App\GofPatterns\Prototype\Domain\Model;
 
 final class NotificationPrototype
 {

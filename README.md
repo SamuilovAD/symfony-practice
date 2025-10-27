@@ -40,3 +40,7 @@ docker compose exec php php bin/console gof:adapter
 ```bash
 docker compose exec php php bin/console gof:decorator
 ```
+## Facade ##
+```bash
+docker compose exec php php bin/console gof:facade
+```

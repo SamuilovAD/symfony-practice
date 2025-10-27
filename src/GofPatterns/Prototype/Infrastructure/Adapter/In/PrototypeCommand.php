@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\GofPatterns\FactoryMethod\Prototype\Infrastructure\Adapter\In;
+namespace App\GofPatterns\Prototype\Infrastructure\Adapter\In;
 
-use App\GofPatterns\FactoryMethod\Prototype\Domain\Model\NotificationPrototype;
+use App\GofPatterns\Prototype\Domain\Model\NotificationPrototype;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
